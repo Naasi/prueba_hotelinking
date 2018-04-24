@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HoteLinking</title>
+		<!-- Para ejecuciones en smartphones -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link rel="stylesheet" href="css/jquery-ui.css" />
+		<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+		<!-- js -->
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/numscroller-1.0.js"></script>
+
+		<!-- fonts -->
+		<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=Viga' rel='stylesheet' type='text/css'>
+	</head>
+
+	<body>
+
+		<!-- Header -->
+		<div class="header wow zoomIn" style="height: 50px;">
+			<div class="container">
+				<!-- Botones de login y registro -->
+				<div class="header_right">
+					<div class="login">
+						<ul id="logReg" class="ocult">
+							<li><a href="#" data-toggle="modal" data-target="#myModal4"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Login</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#myModal5"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Registrarse</a></li>
+						</ul>
+						<p id="nombreUsuario"></p>
+						<a href="#" onclick="logout()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Logout</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Logo y Menú -->
+		<div class="header-bottom ">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+						<div class="logo grid">
+							<div class="grid__item color-3">
+								<h1><a class="link link--nukun" href="index.html"><i></i>HOTE<span>L</span>INKING</a></h1>
+							</div>
+						</div>
+					</div>
+
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<nav class="menu menu--horatio">
+							<ul class="nav navbar-nav menu__list">
+								<li class="menu__item"><a href="index.html" class="menu__link">Inicio</a></li>
+								<li class="menu__item menu__item--current"><a href="cupones.html" class="menu__link">Mis Cupones</a></li> 
+							</ul>
+						</nav>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Lista de todos los cupones activos del usuario -->
+		<div class="capacity">
+			<div class="container">
+				<h3>Consulta todos tus códigos promocionales</h3>
+				<br>
+				<div id="cupones"></div>
+			</div>
+		</div>
+
+		<script>
+			//Si no ha iniciado sesión se manda directamente a la home
+			if (sessionStorage.getItem("usuario") == null) {
+				location.href="index.html";
+			} else {
+				//Mostramos el nombre del usuario
+				$("#nombreUsuario").html("<b style='color:white'>Hola, " + sessionStorage.getItem("usuario")+"</b>");
+			}
+
+			//Función para desloguear al usuario
+			function logout () {
+				//Quitamos los botones de login y registro
+				$("#logReg").removeClass('ocult');
+				
+				//Mostramos el nombre del usuario
+				$("#nombreUsuario").addClass('ocult');
+
+				//Marcamos que ha iniciado sesión
+				sessionStorage.removeItem("usuario");
+				sessionStorage.removeItem("email");
+
+				//Redireccionamos a la Home
+				location.href = "index.html";
+
+			}
+		</script>
+
+		<!-- Script que ejecuta una petición al WS para comprobar login y registro --> 
+		<script src="js/login.js"></script>
+
+		<!-- Script que ejecuta una petición al WS para obtener los códigos promocionales del usuario -->
+		<script src="js/obtenCodigosUsuario.js"></script>
+		<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+	</body>
+</html>
+
